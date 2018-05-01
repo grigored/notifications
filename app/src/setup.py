@@ -44,7 +44,7 @@ class __Setup(object):
             self.sms_credentials = self.__get_sms_credentials()
         else:
             self.email_credentials = EmailCredentials("", "", "", "grigore@instacarshare.com")
-            self.sms_credentials = SmsCredentials("", "", "")
+            self.sms_credentials = SmsCredentials("", "", "test_number")
 
     def __get_email_credentials(self) -> EmailCredentials:
         return EmailCredentials(

@@ -17,4 +17,4 @@ services:
       - SMS_SENDER=+14152002778
     volumes:
       - ./:/app/
-    command: bash -c "python src/wsServer.py"
+    command: bash -c "python app/src/wsgi/wsgi.py"

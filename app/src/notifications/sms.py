@@ -1,6 +1,8 @@
 import logging
 import typing
 
+from src.setup import get_setup
+
 from src.notifications.template import build_template
 
 from src.configs.exceptions import OwnException
@@ -20,9 +22,16 @@ def set_sms(twilio_account_sid: str, twilio_auth_token: str):
 
 
 def send(sender: str, receiver: str, body_template: str, template_data: dict):
+    body = build_template(body_template, template_data)
+    if get_setup().is_debug:
+        logging.info('Not sending real sms in debug mode (activate with DEBUG=true environment variable)')
+        logging.info('from:     %s', sender)
+        logging.info('receiver: %s', receiver)
+        logging.info('body:     %s', body)
+        logging.info('done logging')
+        return
     if not __twilio_singleton:
         raise OwnException(TWILIO_NOT_SETUP)
-    body = build_template(body_template, template_data)
     __twilio_singleton.send_message(body, receiver, sender)
 
 
