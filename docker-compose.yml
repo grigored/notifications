@@ -17,5 +17,5 @@ services:
       - SMS_SENDER=+14152002778
     logging:
       driver: "json-file"
-    command: bash -c "python src/wsServer.py"
+    command: gunicorn -c app/src/configs/gunicorn_conf.py app.src.wsgi.wsgi:app
 
