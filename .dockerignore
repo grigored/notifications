@@ -6,13 +6,6 @@ __pycache__/
 # C extensions
 *.so
 
-
-.idea/workspace.xml
-.idea/dataSources
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-
-
 # Distribution / packaging
 .Python
 env/

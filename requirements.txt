@@ -1,0 +1,8 @@
+Flask==1.0.1
+jsonschema==2.6.0
+gunicorn==19.8.1
+pdfkit==0.6.1
+pytz==2018.4
+raven[flask]
+requests==2.18.4
+websockets==4.0.1

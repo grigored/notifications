@@ -1,0 +1,11 @@
+version: "3"
+services:
+  notificationserver:
+    image: incs/notificationserver
+    ports:
+      - "8001:8001"
+      - "8002:8002"
+    logging:
+      driver: "json-file"
+    command: bash -c "python src/wsServer.py"
+
