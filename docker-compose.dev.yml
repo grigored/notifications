@@ -12,6 +12,9 @@ services:
       - AWS_EMAIL_API_SECRET=AqZ9a2W5uI7ccHuJE8f8HZEUBWBX3TxYifu3kZRghDLk
       - AWS_EMAIL_REGION=eu-west-1
       - EMAIL_SENDER=grigore@instacarshare.com
+      - TWILIO_ACCOUNT_SID=AC10593464d6d0694b5af90a531bd9179f
+      - TWILIO_TOKEN=aef6313cd48a0ecf01be1e367c6b348f
+      - SMS_SENDER=+14152002778
     volumes:
       - ./:/app/
     command: bash -c "python src/wsServer.py"

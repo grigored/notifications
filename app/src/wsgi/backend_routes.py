@@ -6,18 +6,22 @@ from raven import Client
 from raven.contrib.flask import Sentry
 from werkzeug.contrib.fixers import ProxyFix
 
-from src.configs.sentry_conf import set_sentry, SENTRY_LIST_MAX_LENGTH, SENTRY_STRING_MAX_LENGTH
-from src.wsgi.gzip_app import Gzip
+from src.configs.sentry_conf import SENTRY_LIST_MAX_LENGTH, SENTRY_STRING_MAX_LENGTH, set_sentry
 from src.handlers import (
     health_check_handler,
+    send_email_handler,
     send_notification_handler,
+    send_sms_handler,
 )
+from src.wsgi.gzip_app import Gzip
 
 
 def add_routes(app):
     base_regex = '/api/%s/'
     routes_base_v1 = {
-        'send-notification': send_notification_handler.SendNotificationHandler,
+        'send-email': send_email_handler.Handler,
+        'send-sms': send_sms_handler.Handler,
+        'send-notification': send_notification_handler.Handler,
     }
 
     # routes_base_v1_3 = {route: handler for route, handler in routes_base_v1_2.items()}

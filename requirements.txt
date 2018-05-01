@@ -5,4 +5,5 @@ pdfkit==0.6.1
 pytz==2018.4
 raven[flask]
 requests==2.18.4
+twilio==6.13.0
 websockets==4.0.1
