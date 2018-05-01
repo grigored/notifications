@@ -48,15 +48,15 @@ class __Setup(object):
 
     def __get_email_credentials(self) -> EmailCredentials:
         return EmailCredentials(
-            os.environ['AWS_EMAIL_API_KEY'],
-            os.environ['AWS_EMAIL_API_SECRET'],
-            os.environ['AWS_EMAIL_REGION'],
-            os.environ['EMAIL_SENDER'],
+            os.environ.get('AWS_EMAIL_API_KEY'),
+            os.environ.get('AWS_EMAIL_API_SECRET'),
+            os.environ.get('AWS_EMAIL_REGION'),
+            os.environ.get('EMAIL_SENDER'),
         )
 
     def __get_sms_credentials(self) -> SmsCredentials:
         return SmsCredentials(
-            os.environ['TWILIO_ACCOUNT_SID'],
-            os.environ['TWILIO_TOKEN'],
-            os.environ['SMS_SENDER'],
+            os.environ.get('TWILIO_ACCOUNT_SID'),
+            os.environ.get('TWILIO_TOKEN'),
+            os.environ.get('SMS_SENDER'),
         )
