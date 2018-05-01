@@ -15,9 +15,9 @@ class Handler(BaseApiHandler):
                 email.send(
                     email_details.get('sender') or get_setup().email_credentials.email_sender,
                     email_details['receiver'],
-                    email_details['email_subject_template'],
-                    email_details['email_text_template'],
-                    email_details['email_html_template'],
+                    email_details['subject'],
+                    email_details['text'],
+                    email_details['html'],
                     email_details['pdfs'],
                     email_details['data'],
                 )
@@ -27,7 +27,7 @@ class Handler(BaseApiHandler):
                 sms.send(
                     sms_details.get('sender') or get_setup().sms_credentials.phone_number,
                     sms_details['receiver'],
-                    sms_details['sms_template'],
+                    sms_details['body'],
                     sms_details['data'],
                 )
         except OwnException as e:

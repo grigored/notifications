@@ -10,21 +10,21 @@ PROPERTIES = "properties"
 
 schema_email = {
     TYPE: NULLABLE_OBJECT,
-    REQUIRED: ["receiver", "email_subject_template"],
+    REQUIRED: ["receiver", "subject"],
     PROPERTIES: {
         "sender": {TYPE: STRING},
         "receiver": {TYPE: STRING},
-        "email_subject_template": {TYPE: STRING},
-        "email_text_template": {TYPE: STRING},
-        "email_html_template": {TYPE: STRING},
+        "subject": {TYPE: STRING},
+        "text": {TYPE: STRING},
+        "html": {TYPE: STRING},
         "data": {TYPE: OBJECT},
         "pdfs": {
             TYPE: NULLABLE_ARRAY,
             ITEMS: {
                 TYPE: OBJECT,
-                REQUIRED: ["template", "filename"],
+                REQUIRED: ["body", "filename"],
                 PROPERTIES: {
-                    "template": {TYPE: STRING},
+                    "body": {TYPE: STRING},
                     "filename": {TYPE: STRING},
                 },
             },
@@ -38,7 +38,7 @@ schema_sms = {
     PROPERTIES: {
         "sender": {TYPE: STRING},
         "receiver": {TYPE: STRING},
-        "sms_template": {TYPE: STRING},
+        "body": {TYPE: STRING},
         "data": {TYPE: OBJECT},
     },
 }

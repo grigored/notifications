@@ -54,7 +54,7 @@ def send(
     subject = build_template(subject_template, template_data)
     attachments: List[PdfFile] = []
     for pdf in pdfs:
-        attachments.append(get_pdf_attachment(pdf.get('template'), template_data, pdf.get('filename')))
+        attachments.append(get_pdf_attachment(pdf.get('body'), template_data, pdf.get('filename')))
     __send_to_ses(sender, receiver, subject, body_text, body_html, attachments)
 
 

@@ -13,9 +13,9 @@ class Handler(BaseApiHandler):
             email.send(
                 received_json.get('sender') or get_setup().email_credentials.email_sender,
                 received_json['receiver'],
-                received_json['email_subject_template'],
-                received_json['email_text_template'],
-                received_json['email_html_template'],
+                received_json['subject'],
+                received_json['text'],
+                received_json['html'],
                 received_json['pdfs'],
                 received_json['data'],
             )

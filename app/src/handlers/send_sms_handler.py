@@ -13,7 +13,7 @@ class Handler(BaseApiHandler):
             sms.send(
                 received_json.get('sender') or get_setup().sms_credentials.phone_number,
                 received_json['receiver'],
-                received_json['sms_template'],
+                received_json['body'],
                 received_json['data'],
             )
         except OwnException as e:
