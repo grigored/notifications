@@ -16,7 +16,6 @@ services:
       - TWILIO_TOKEN=aef6313cd48a0ecf01be1e367c6b348f
       - SMS_SENDER=+14152002778
     ports:
-      - "8001:8001"
-      - "8002:8002"
+      - "8006:8006"
     command: bash -c "python app/src/wsgi/wsgi.py"
 

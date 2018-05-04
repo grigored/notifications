@@ -19,7 +19,7 @@ locales-all
 WORKDIR /app
 
 # Make port 8000 available to the world outside this container
-EXPOSE 8001 8002
+EXPOSE 8006
 
 # Define environment variable
 ENV AWS_ACCESS_KEY_ID="" \

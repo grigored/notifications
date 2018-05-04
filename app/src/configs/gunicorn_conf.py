@@ -2,7 +2,7 @@ from multiprocessing import cpu_count
 import os
 
 # bind = '0.0.0.0:443'
-bind = '0.0.0.0:8001'
+bind = '0.0.0.0:8006'
 workers = 1  # cpu_count() * 2 + 1
 daemon = False
 threads = 10

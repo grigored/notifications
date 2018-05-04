@@ -19,4 +19,4 @@ else:
     if not debug:
         set_sms(get_setup().sms_credentials.sid, get_setup().sms_credentials.token)
     app = configure_app(debug)
-    app.run(host="0.0.0.0", debug=True, port=8001, threaded=True)
+    app.run(host="0.0.0.0", debug=True, port=8006, threaded=True)
