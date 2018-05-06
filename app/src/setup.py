@@ -1,4 +1,3 @@
-import logging
 import typing
 import os
 
@@ -16,7 +15,6 @@ def set_setup(is_debug: bool):
     global setup_singleton
     if setup_singleton:
         raise Exception
-    logging.basicConfig(level=logging.INFO)
     setup_singleton = __Setup(is_debug)
 
 

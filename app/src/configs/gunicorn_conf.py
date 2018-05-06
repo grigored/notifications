@@ -1,8 +1,10 @@
 from multiprocessing import cpu_count
 import os
 
+port = os.environ.get('PORT')
+
 # bind = '0.0.0.0:443'
-bind = '0.0.0.0:8006'
+bind = '0.0.0.0:{}'.format(port)
 workers = 1  # cpu_count() * 2 + 1
 daemon = False
 threads = 10

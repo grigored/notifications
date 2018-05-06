@@ -1,11 +1,25 @@
 #!/usr/bin/python
+import logging
+
 from src.notifications.sms import set_sms
 from src.setup import set_setup, get_setup
 from src.wsgi.backend_routes import configure_app
 import os
 
+logging.basicConfig(level=logging.INFO)
+
 debug = os.environ.get('DEBUG') == "true"
 production = os.environ.get('PRODUCTION') == "true"
+port = os.environ.get('PORT')
+
+if port == "":
+    logging.info('Port is missing. Use the "PORT" environment variable to set it')
+    sys.exit(-1)
+try:
+    port = int(port)
+except:
+    logging.info('Port is not int. Use the "PORT" environment variable to set it')
+    sys.exit(-1)
 
 
 if production:
