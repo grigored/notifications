@@ -34,7 +34,7 @@ schema_email = {
 
 schema_sms = {
     TYPE: NULLABLE_OBJECT,
-    REQUIRED: ["receiver", "sms_template"],
+    REQUIRED: ["receiver", "body"],
     PROPERTIES: {
         "sender": {TYPE: STRING},
         "receiver": {TYPE: STRING},

@@ -1,3 +1,4 @@
+import json
 import logging
 import traceback
 import jsonschema
@@ -44,6 +45,7 @@ def validate_request(schema=None):
                 if schema is not None:
                     json_body = get_json(schema)
                     kwargs['received_json'] = json_body
+                    logging.info('got request body: %s', json.dumps(json_body))
                 return handler(self, *args, **kwargs)
 
             except OwnException as e:
