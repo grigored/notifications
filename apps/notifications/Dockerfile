@@ -15,17 +15,15 @@ wget \
 locales \
 locales-all
 
-# Set the working directory to /app
+# Set the working directory to /app_notifications
+RUN mkdir -p /app
 WORKDIR /app
-
-# Make port 8000 available to the world outside this container
-EXPOSE 8006
 
 # Define environment variable
 ENV AWS_ACCESS_KEY_ID="" \
 AWS_SECRET_ACCESS_KEY="" \
 AWS_DEFAULT_REGION="" \
-PYTHONPATH=/app/app/ \
+PYTHONPATH=/app/ \
 LC_ALL=en_US.UTF-8 \
 LANG=en_US.UTF-8 \
 LANGUAGE=en_US.UTF-8
@@ -33,7 +31,7 @@ LANGUAGE=en_US.UTF-8
 COPY requirements.txt requirements.txt
 RUN python3 -m pip install -r requirements.txt
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy the current directory contents into the container at /app_notifications
+COPY ./src /app/src
 
-CMD gunicorn -c app/src/configs/gunicorn_conf.py app.src.wsgi.wsgi:app
+CMD gunicorn -c src/configs/gunicorn_conf.py src.wsgi.wsgi:app

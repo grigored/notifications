@@ -1,0 +1,8 @@
+boto==2.48.0
+boto3==1.7.14
+Flask==1.0.1
+jsonschema==2.6.0
+gunicorn==19.8.1
+raven[flask]
+requests==2.18.4
+websockets==4.0.1

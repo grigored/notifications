@@ -1,12 +1,16 @@
 version: "2"
 services:
+
   notifications:
     image: incs/notifications
     ports:
       - "8006:8006"
+    expose:
+      - "8006"
     environment:
+      - PORT=8006
       - PRODUCTION=false
-      - DEBUG=true
+      - DEBUG=false
       - AWS_EMAIL_API_KEY=AKIAIMT6FSAPFC26ONAQ
       - AWS_EMAIL_API_SECRET=AqZ9a2W5uI7ccHuJE8f8HZEUBWBX3TxYifu3kZRghDLk
       - AWS_EMAIL_REGION=eu-west-1
@@ -14,6 +18,19 @@ services:
       - TWILIO_ACCOUNT_SID=AC10593464d6d0694b5af90a531bd9179f
       - TWILIO_TOKEN=aef6313cd48a0ecf01be1e367c6b348f
       - SMS_SENDER=+14152002778
-    volumes:
-      - ./:/app/
-    command: bash -c "python app/src/wsgi/wsgi.py"
+    command: bash -c "python src/wsgi/wsgi.py"
+
+  s3upload:
+    image: incs/s3upload
+    ports:
+      - "8007:8007"
+    expose:
+      - "8007"
+    environment:
+      - PORT=8007
+      - PRODUCTION=false
+      - AWS_S3_API_KEY=AKIAJKXX4LWWHTFINZGA
+      - AWS_S3_API_SECRET=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
+      - AWS_S3_REGION=us-east-1
+      - DEFAULT_BUCKET=instacarshare
+    command: bash -c "python src/wsgi/wsgi.py"

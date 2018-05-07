@@ -1,11 +1,17 @@
 version: "3"
 services:
+
   notifications:
     image: incs/notifications
     build:
-      context: .
+      context: ./apps/notifications
       dockerfile: ./Dockerfile
+    ports:
+      - "8006:8006"
+    expose:
+      - "8006"
     environment:
+      - PORT=8006
       - PRODUCTION=true
       - DEBUG=false
       - AWS_EMAIL_API_KEY=AKIAIMT6FSAPFC26ONAQ
@@ -15,7 +21,22 @@ services:
       - TWILIO_ACCOUNT_SID=AC10593464d6d0694b5af90a531bd9179f
       - TWILIO_TOKEN=aef6313cd48a0ecf01be1e367c6b348f
       - SMS_SENDER=+14152002778
-    ports:
-      - "8006:8006"
-    command: bash -c "python app/src/wsgi/wsgi.py"
+    command: gunicorn -c src/configs/gunicorn_conf.py src.wsgi.wsgi:app
 
+  s3upload:
+    image: incs/s3upload
+    build:
+      context: ./apps/s3upload
+      dockerfile: ./Dockerfile
+    ports:
+      - "8007:8007"
+    expose:
+      - "8007"
+    environment:
+      - PORT=8007
+      - PRODUCTION=true
+      - AWS_S3_API_KEY=AKIAJKXX4LWWHTFINZGA
+      - AWS_S3_API_SECRET=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
+      - AWS_S3_REGION=us-east-1
+      - DEFAULT_BUCKET=defaultbucket
+    command: gunicorn -c src/configs/gunicorn_conf.py src.wsgi.wsgi:app
