@@ -20,10 +20,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # Define environment variable
-ENV AWS_ACCESS_KEY_ID="" \
-AWS_SECRET_ACCESS_KEY="" \
-AWS_DEFAULT_REGION="" \
-PYTHONPATH=/app/ \
+ENV PYTHONPATH=/app/ \
 LC_ALL=en_US.UTF-8 \
 LANG=en_US.UTF-8 \
 LANGUAGE=en_US.UTF-8
