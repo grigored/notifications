@@ -37,7 +37,10 @@ def send(sender: str, receiver: str, body_template: str, template_data: dict):
 
 class __TwilioClient(object):
     def __init__(self, twilio_account_sid: str, twilio_auth_token: str):
-        self.twilio_client = Client(twilio_account_sid, twilio_auth_token)
+        if twilio_account_sid and twilio_auth_token:
+            self.twilio_client = Client(twilio_account_sid, twilio_auth_token)
+        else:
+            print("twilio not initialised (account sid and/or auth token is missing)")
 
     def send_message(self, body, receiver, sender):
         if self.twilio_client is None:

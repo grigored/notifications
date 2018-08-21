@@ -8,13 +8,23 @@ from typing import List
 
 from src.notifications.template import build_template, get_pdf_attachment, PdfFile
 from src.setup import get_setup
+import boto3
 
 SES_PORT = 587
+
+SES_CLIENT = None
+
+
+def get_ses_client():
+    global SES_CLIENT
+    if SES_CLIENT is None:
+        SES_CLIENT = boto3.client('ses', region_name=get_setup().email_credentials.aws_region)
+    return SES_CLIENT
 
 
 def __build_msg_html(
         sender: str,
-        receiver: List[str],
+        receivers: List[str],
         subject: str,
         txt: str,
         html: str,
@@ -23,7 +33,7 @@ def __build_msg_html(
     msg_root = MIMEMultipart('mixed')
     msg_root['Subject'] = Header(subject, 'utf-8')
     msg_root['From'] = sender
-    msg_root['To'] = ', '.join(receiver)
+    msg_root['To'] = ', '.join(receivers)
     msg = MIMEMultipart('alternative')
 
     msg.attach(MIMEText(txt, 'plain', 'utf-8'))
@@ -42,7 +52,7 @@ def __build_msg_html(
 
 def send(
         sender: str,
-        receiver: str,
+        receivers: List[str],
         subject_template: str,
         text_template: str,
         html_template: str,
@@ -55,12 +65,12 @@ def send(
     attachments: List[PdfFile] = []
     for pdf in pdfs:
         attachments.append(get_pdf_attachment(pdf.get('body'), template_data, pdf.get('filename')))
-    __send_to_ses(sender, receiver, subject, body_text, body_html, attachments)
+    __send_to_ses(sender, receivers, subject, body_text, body_html, attachments)
 
 
 def __send_to_ses(
         sender: str,
-        receiver: str,
+        receivers: List[str],
         subject: str,
         txt: str,
         html: str,
@@ -69,7 +79,7 @@ def __send_to_ses(
     if get_setup().is_debug:
         logging.info('Not sending real emails in debug mode (activate with DEBUG=true environment variable)')
         logging.info('sender:       %s', sender)
-        logging.info('receiver:     %s', receiver)
+        logging.info('receivers:    %s', receivers)
         logging.info('subject:      %s', subject)
         logging.info('txt:          %s', txt)
         logging.info('html:         %s', html)
@@ -77,15 +87,11 @@ def __send_to_ses(
         logging.info('done logging')
         return
 
-    logging.info(f'Sending email with subject {subject!r} to {receiver!r} from {sender!r}')
-    try:
-        smtp = smtplib.SMTP(f'email-smtp.{get_setup().email_credentials.aws_region}.amazonaws.com', SES_PORT)
-        smtp.starttls()
-        smtp.login(get_setup().email_credentials.api_key, get_setup().email_credentials.api_secret)
-        msg = __build_msg_html(sender, receiver.split(','), subject, txt, html, attachments)
-        smtp.sendmail(sender, receiver.split(','), msg.as_string())
-        smtp.quit()
-        logging.info(f'Sent email with subject {subject!r} to {receiver!r} from {sender!r}')
-    except OSError as e:
-        logging.error(f'Error {e} occurred during sending email with subject {subject!r} to {receiver!r} from '
-                      f'{sender!r}')
+    logging.info(f'Sending email with subject {subject!r} to {receivers!r} from {sender!r}')
+    msg = __build_msg_html(sender, receivers, subject, txt, html, attachments)
+    get_ses_client().send_raw_email(
+        Source=sender,
+        Destinations=receivers,  # here it has to be a list, even if it is only one recipient
+        RawMessage={
+            'Data': msg.as_string() # this generates all the headers and stuff for a raw mail message
+        })

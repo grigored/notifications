@@ -13,7 +13,10 @@ schema_email = {
     REQUIRED: ["receiver", "subject"],
     PROPERTIES: {
         "sender": {TYPE: STRING},
-        "receiver": {TYPE: STRING},
+        "receiver": {
+            TYPE: ARRAY,
+            ITEMS: {TYPE: STRING},
+        },
         "subject": {TYPE: STRING},
         "text": {TYPE: STRING},
         "html": {TYPE: STRING},

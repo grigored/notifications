@@ -8,7 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/app_s3upload" />
       <excludeFolder url="file://$MODULE_DIR$/env" />
     </content>
-    <orderEntry type="jdk" jdkName="Remote Python 3.6.1 Docker Compose (notifications at [/Users/alexbuicescu/git/instacar/notifications/docker-compose.dev.yml])" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.7 (notifications)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">
