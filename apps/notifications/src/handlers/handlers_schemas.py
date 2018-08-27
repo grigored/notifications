@@ -10,10 +10,10 @@ PROPERTIES = "properties"
 
 schema_email = {
     TYPE: NULLABLE_OBJECT,
-    REQUIRED: ["receiver", "subject"],
+    REQUIRED: ["receivers", "subject"],
     PROPERTIES: {
         "sender": {TYPE: STRING},
-        "receiver": {
+        "receivers": {
             TYPE: ARRAY,
             ITEMS: {TYPE: STRING},
         },

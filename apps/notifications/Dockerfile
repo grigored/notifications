@@ -1,6 +1,8 @@
 # Use an official Python runtime as a base image
 FROM python:3.6.1
 
+EXPOSE 8006
+
 # Install wkhtmltopdf (and clean after)
 RUN wget https://s3.amazonaws.com/instacarshare/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
 unxz wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \

@@ -14,7 +14,7 @@ class Handler(BaseApiHandler):
             if email_details:
                 email.send(
                     email_details.get('sender') or get_setup().email_credentials.email_sender,
-                    email_details['receiver'],
+                    email_details['receivers'],
                     email_details['subject'],
                     email_details['text'],
                     email_details['html'],

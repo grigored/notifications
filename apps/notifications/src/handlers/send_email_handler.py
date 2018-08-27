@@ -12,7 +12,7 @@ class Handler(BaseApiHandler):
         try:
             email.send(
                 received_json.get('sender') or get_setup().email_credentials.email_sender,
-                received_json['receiver'],
+                received_json['receivers'],
                 received_json['subject'],
                 received_json['text'],
                 received_json['html'],
