@@ -97,8 +97,6 @@ def get_data_for_s3_post(bucket_name=None, bucket_region=None, upload_file_name=
         's3',
         region_name=bucket_region,
         config=Config(signature_version='s3v4'),
-        aws_access_key_id=get_setup().s3_credentials.api_key,
-        aws_secret_access_key=get_setup().s3_credentials.api_secret,
     )
     # conn = boto.connect_s3()
     # conn.build_post_policy(time() + 1000, {})
@@ -115,17 +113,11 @@ def get_data_for_s3_post(bucket_name=None, bucket_region=None, upload_file_name=
         ExpiresIn=post_expire_in
     )
 
-    return {
-        'bucket': bucket_name,
-        'key': post_data.get('fields').get('key'),
-        'acl': post_data.get('fields').get('acl'),
-        'Content-Type': 'image/',
-        'X-Amz-Algorithm': 'AWS4-HMAC-SHA256',
-        'X-Amz-Credential': post_data.get('fields').get('x-amz-credential'),
-        'X-Amz-Date': post_data.get('fields').get('x-amz-date'),
-        'Policy': post_data.get('fields').get('policy'),
-        'X-Amz-Signature': post_data.get('fields').get('x-amz-signature'),
-    }
+    fields = post_data.get('fields')
+    fields['bucket'] = bucket_name
+    fields['Content-Type'] = 'image/'
+
+    return fields
 
 
 def get_url_for_private_file(key, bucket_name=None):
