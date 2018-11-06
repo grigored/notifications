@@ -70,13 +70,14 @@ def download_string_from_s3(upload_file_name, bucket_name=None):
     return downloaded_file
 
 
-def get_data_for_s3_post(bucket_name=None, bucket_region=None, upload_file_name=None, public=False,
-                         max_file_size=TEN_MB, post_expire_in=3600):
+def get_data_for_s3_post(bucket_name=None, bucket_region=None, upload_file_name=None, upload_file_type="",
+                         public=False, max_file_size=TEN_MB, post_expire_in=3600):
     """
 
     @param bucket_name: bucket name
     @param upload_file_name: the file path where to upload, eg: upload_folder/file_name.txt, or file_name.jpg; if no
     file name is provided, it will use by default uuid.uuid4()
+    @param upload_file_type: type of the to-be-uploaded file, eg: image/, application/pdf
     @param public: visibility of file on S3
     (more here http://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUTacl.html)
     @param max_file_size: the max file size that S3 should accept (in bytes)
@@ -108,14 +109,14 @@ def get_data_for_s3_post(bucket_name=None, bucket_region=None, upload_file_name=
         Conditions=[
             {'acl': policy},
             ['content-length-range', 0, max_file_size],
-            ["starts-with", "$Content-Type", "image/"],
+            ["starts-with", "$Content-Type", upload_file_type or 'image/'],
         ],
         ExpiresIn=post_expire_in
     )
 
     fields = post_data.get('fields')
     fields['bucket'] = bucket_name
-    fields['Content-Type'] = 'image/'
+    fields['Content-Type'] = upload_file_type or 'image/jpeg'
 
     return fields
 

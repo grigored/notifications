@@ -15,6 +15,7 @@ schema_get_data = {
     REQUIRED: ["filename"],
     PROPERTIES: {
         "filename": {TYPE: STRING},
+        "filetype": {TYPE: STRING},
         "public": {TYPE: BOOLEAN},
         "maxFileSize": {TYPE: NUMBER},
         "postExpire": {TYPE: NUMBER},

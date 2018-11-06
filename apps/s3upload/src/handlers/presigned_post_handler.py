@@ -14,6 +14,7 @@ class Handler(BaseApiHandler):
                 bucket_name=received_json.get('bucket'),
                 bucket_region=received_json.get('bucketRegion'),
                 upload_file_name=received_json.get('filename'),
+                upload_file_type=received_json.get('filetype'),
                 public=received_json.get('public'),
                 max_file_size=received_json.get('maxFileSize') or TEN_MB,
                 post_expire_in=received_json.get('postExpire') or 3600,
