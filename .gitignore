@@ -9,8 +9,8 @@ __pycache__/
 *.so
 
 
-.idea/workspace.xml
-.idea/dataSources
+**/.idea/workspace.xml
+**/.idea/dataSources
 .idea/dataSources.xml
 .idea/dataSources.local.xml
 
