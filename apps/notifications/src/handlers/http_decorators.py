@@ -1,9 +1,9 @@
 import json
 import logging
 import traceback
-import jsonschema
 from http import HTTPStatus
 
+import jsonschema
 from flask import request
 from werkzeug.exceptions import BadRequest
 
@@ -24,7 +24,6 @@ def get_json(schema: dict):
         return body
     except (jsonschema.exceptions.ValidationError, jsonschema.exceptions.SchemaError) as e:
         raise OwnException(INVALID_JSON, data={'explanation': e.message})
-
 
 
 def validate_request(schema=None):

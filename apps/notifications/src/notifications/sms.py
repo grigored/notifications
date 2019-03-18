@@ -1,15 +1,13 @@
 import logging
 import typing
 
-from src.setup import get_setup
-
-from src.notifications.template import build_template
-
-from src.configs.exceptions import OwnException
 from twilio.base.exceptions import TwilioRestException
 from twilio.rest import Client
 
+from src.configs.exceptions import OwnException
 from src.configs.strings import SMS_NOT_CONFIGURED, SMS_COULD_NOT_BE_SENT, TWILIO_NOT_SETUP
+from src.notifications.template import build_template
+from src.setup import get_setup
 
 __twilio_singleton: typing.Optional['__TwilioClient'] = None
 
@@ -55,4 +53,3 @@ class __TwilioClient(object):
             logging.info('sending sms from: %s, receiver: %s, body: %s', sender, receiver, body)
         except TwilioRestException as e:
             raise OwnException(SMS_COULD_NOT_BE_SENT, e.msg)
-

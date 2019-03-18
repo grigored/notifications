@@ -1,6 +1,5 @@
-import typing
 import os
-
+import typing
 
 setup_singleton: typing.Optional['__Setup'] = None
 
@@ -41,8 +40,8 @@ class __Setup(object):
             self.email_credentials = self.__get_email_credentials()
             self.sms_credentials = self.__get_sms_credentials()
         else:
-            self.email_credentials = EmailCredentials("", "", "", "grigore@instacarshare.com")
-            self.sms_credentials = SmsCredentials("", "", "test_number")
+            self.email_credentials = EmailCredentials("", "", "", "notifications@instasoft.io")
+            self.sms_credentials = SmsCredentials("", "", "instasoft-phone-number")
 
     def __get_email_credentials(self) -> EmailCredentials:
         return EmailCredentials(

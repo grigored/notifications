@@ -56,4 +56,3 @@ def format_date_time(timestamp, timezone_string=None, timezone_obj=None, locale=
         timestamp,
         timezone
     ).strftime(time_formatter)
-

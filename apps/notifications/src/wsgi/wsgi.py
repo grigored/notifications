@@ -1,11 +1,11 @@
 #!/usr/bin/python
 import logging
+import os
 import sys
 
 from src.notifications.sms import set_sms
 from src.setup import set_setup, get_setup
 from src.wsgi.backend_routes import configure_app
-import os
 
 logging.basicConfig(level=logging.INFO)
 

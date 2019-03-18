@@ -1,14 +1,14 @@
 import logging
-import smtplib
 from email.header import Header
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import List
 
+import boto3
+
 from src.notifications.template import build_template, get_pdf_attachment, PdfFile
 from src.setup import get_setup
-import boto3
 
 SES_PORT = 587
 
@@ -93,5 +93,5 @@ def __send_to_ses(
         Source=sender,
         Destinations=receivers,  # here it has to be a list, even if it is only one recipient
         RawMessage={
-            'Data': msg.as_string() # this generates all the headers and stuff for a raw mail message
+            'Data': msg.as_string()  # this generates all the headers and stuff for a raw mail message
         })

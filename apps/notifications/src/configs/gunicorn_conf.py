@@ -1,4 +1,3 @@
-from multiprocessing import cpu_count
 import os
 
 port = os.environ.get('PORT')

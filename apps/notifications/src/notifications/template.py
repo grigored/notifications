@@ -1,5 +1,3 @@
-import json
-
 import pdfkit
 from jinja2 import Environment
 
